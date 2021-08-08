@@ -1,0 +1,11 @@
+.dialog a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    font-size: 20px;
+}
+
+.dialog .active {
+    font-size: 25px;
+    color: gold;
+}

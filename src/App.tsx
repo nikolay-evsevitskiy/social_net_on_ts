@@ -1,26 +1,46 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Header from './componets/Header/Header';
+import Navbar from './componets/Navbar/Navbar';
+import Profile from './componets/Profile/Profile';
+import Dialogs from './componets/Dialogs/Dialogs';
+import {BrowserRouter, Route} from 'react-router-dom';
+import News from './componets/News/News';
+import Music from './componets/Music/Music';
+import Settings from './componets/Setting/Settings';
+import {StoreType} from './Redux/state';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+type PropsType = {
+   store: StoreType
+}
+
+
+const App: React.FC<PropsType>  = (props) => {
+    const state = props.store.getState();
+
+    return (
+        <BrowserRouter>
+        <div className='app-wrapper'>
+            <Header />
+            <Navbar />
+            <div className="app-wrapper-content">
+                <Route path={"/dialogs"} render={ () => <Dialogs messages={state.dialogPage.messages}
+                                                                 newMessageText={state.dialogPage.newMessageText}
+                                                                 dialogs={state.dialogPage.dialogs}
+                                                                 dispatch={props.store.dispatch.bind(props.store)}
+                                                        />}
+                />
+                <Route path={"/profile"} render={ () => <Profile posts={state.profilePage.posts}
+                                                                 dispatch={props.store.dispatch.bind(props.store)}
+                                                                 newPostText={state.profilePage.newPostText}
+                />}/>
+                <Route path={"/news"} render={ () => <News />}/>
+                <Route path={"/music"} render={ () => <Music />}/>
+                <Route path={"/settings"} render={ () => <Settings />}/>
+            </div>
+        </div>
+        </BrowserRouter>
+    );
 }
 
 export default App;
