@@ -7,8 +7,17 @@ export const postAddActionCreator = () => {
 export const updateNewPostTextActionCreator = (text: string) => {
     return {type: "UPDATE-NEW-POST-TEXT", newText: text} as const
 };
+let initialState =  {
+    posts: [
+        {id: 1, message: 'Hi, how are you?', likes: 3},
+        {id: 2, message: 'It\'s my first post', likes: 6},
+        {id: 3, message: 'I like JS!!!', likes: 75},
+        {id: 4, message: 'Just, do it!!!', likes: 10}
+    ],
+    newPostText: "",
+}
 
-const profilePageReducer = (state: ProfilePageType, action: PostActionType | MessageActionType) => {
+const profilePageReducer = (state: ProfilePageType = initialState, action: PostActionType | MessageActionType) => {
     switch (action.type) {
         case 'POST-ADD':
             let newPost: PostsType = {
