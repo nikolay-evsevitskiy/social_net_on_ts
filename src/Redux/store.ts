@@ -1,3 +1,7 @@
+import profilePageReducer, {postAddActionCreator, updateNewPostTextActionCreator} from "./profilePageReducer";
+import dialogPageReducer, {addMessageActionCreator, updateNewMessageActionCreator} from "./dialogsPageReducer";
+import sideBarReducer from "./sideBarReducer";
+
 export type PostsType = {
     id: number
     message: string
@@ -34,18 +38,7 @@ export type StoreType = {
 };
 export type PostActionType = ReturnType<typeof postAddActionCreator> | ReturnType<typeof updateNewPostTextActionCreator>;
 export type MessageActionType = ReturnType<typeof addMessageActionCreator> | ReturnType<typeof updateNewMessageActionCreator>;
-export const postAddActionCreator = ( ) => {
-    return {type: "POST-ADD"} as const
-};
-export const updateNewPostTextActionCreator = (text: string ) => {
-    return {type: "UPDATE-NEW-POST-TEXT", newText: text} as const
-};
-export const addMessageActionCreator = () => {
-    return {type: "ADD-MESSAGE"} as const
-};
-export const updateNewMessageActionCreator = (text: string) => {
-   return {type: "UPDATE-NEW-MESSAGE-TEXT", newText: text} as const
-};
+
 
 
 let store: StoreType = {
@@ -86,30 +79,11 @@ let store: StoreType = {
         return this._state;
     },
     dispatch(action) {
-        if(action.type === 'POST-ADD') {
-            let newPost: PostsType = {
-                id: new Date().getTime(),
-                message: this._state.profilePage.newPostText,
-                likes: 0
-            };
-            this._state.profilePage.posts.push(newPost);
-            this._state.profilePage.newPostText = '';
-            this._rerenderTree();
-        } else if (action.type === 'ADD-MESSAGE') {
-            let newText: MessagesType = {
-                id: new Date().getTime(),
-                message: this._state.dialogPage.newMessageText
-            };
-            this._state.dialogPage.messages.push(newText);
-            this._state.dialogPage.newMessageText = '';
-            this._rerenderTree();
-        } else if (action.type === 'UPDATE-NEW-MESSAGE-TEXT') {
-            this._state.dialogPage.newMessageText = action.newText;
-            this._rerenderTree();
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
-            this._state.profilePage.newPostText = action.newText;
-            this._rerenderTree();
-        }
+        this._state.profilePage = profilePageReducer(this._state.profilePage, action);
+        this._state.dialogPage = dialogPageReducer(this._state.dialogPage, action);
+        this._state.sideBar = sideBarReducer(this._state.sideBar, action);
+        this._rerenderTree();
+
     }
 };
 

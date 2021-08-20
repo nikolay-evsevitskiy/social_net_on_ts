@@ -1,5 +1,6 @@
 import React, {ChangeEvent} from 'react';
-import {PostActionType, postAddActionCreator, updateNewPostTextActionCreator} from "../../../Redux/state";
+import {PostActionType} from "../../../Redux/store";
+import {postAddActionCreator, updateNewPostTextActionCreator} from './../../../Redux/profilePageReducer'
 
 type ProfileInfoType = {
     newPostText: string

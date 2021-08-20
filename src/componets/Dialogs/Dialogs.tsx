@@ -3,12 +3,11 @@ import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
 import {
-    addMessageActionCreator,
     DialogsType,
     MessageActionType,
-    MessagesType,
-    updateNewMessageActionCreator
-} from '../../Redux/state';
+    MessagesType
+} from '../../Redux/store';
+import {addMessageActionCreator, updateNewMessageActionCreator} from './../../Redux/dialogsPageReducer'
 
 type DialogType = {
     dialogs: Array<DialogsType>
