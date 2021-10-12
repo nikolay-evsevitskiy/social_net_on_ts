@@ -1,23 +1,8 @@
-import React, {ChangeEvent} from 'react';
-import {PostActionType} from "../../../Redux/store";
-import {postAddActionCreator, updateNewPostTextActionCreator} from './../../../Redux/profilePageReducer'
+import React from 'react';
 
-type ProfileInfoType = {
-    newPostText: string
-    dispatch: (action: PostActionType) => void
-}
 
-const ProfileInfo = (props:ProfileInfoType) => {
+const ProfileInfo = () => {
 
-    let addPost = () => {
-        let action = postAddActionCreator();
-        props.dispatch(action);
-    };
-    let onPostChange = (e:ChangeEvent<HTMLTextAreaElement>) => {
-        let text = e.currentTarget.value;
-        let action = updateNewPostTextActionCreator(text);
-       props.dispatch(action);
-    };
 
     return (
         <div>
@@ -28,14 +13,7 @@ const ProfileInfo = (props:ProfileInfoType) => {
             <h3>
                 Ava + descrition
             </h3>
-            <div>
-                <div>
-                    <textarea onChange={onPostChange} value={props.newPostText}/>
-                </div>
-                <div>
-                    <button onClick={addPost}>Add post</button>
-                </div>
-            </div>
+
         </div>
     )
 }

@@ -30,10 +30,7 @@ const App: React.FC<PropsType>  = (props) => {
                                                                  dispatch={props.store.dispatch.bind(props.store)}
                                                         />}
                 />
-                <Route path={"/profile"} render={ () => <Profile posts={state.profilePage.posts}
-                                                                 dispatch={props.store.dispatch.bind(props.store)}
-                                                                 newPostText={state.profilePage.newPostText}
-                />}/>
+                <Route path={"/profile"} render={ () => <Profile store={props.store}/>}/>
                 <Route path={"/news"} render={ () => <News />}/>
                 <Route path={"/music"} render={ () => <Music />}/>
                 <Route path={"/settings"} render={ () => <Settings />}/>
