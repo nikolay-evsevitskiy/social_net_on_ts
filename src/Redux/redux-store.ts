@@ -3,14 +3,14 @@ import {createStore} from 'redux';
 import profilePageReducer from "./profilePageReducer";
 import dialogPageReducer from "./dialogsPageReducer";
 import sideBarReducer from "./sideBarReducer";
-import {StoreType} from "./store";
 
-let reducers = combineReducers({
+export const rootReducer = combineReducers({
     profilePage: profilePageReducer,
     dialogPage: dialogPageReducer,
     sideBar: sideBarReducer
 })
 
-let store: StoreType = createStore(reducers);
+export type AppStateType = ReturnType<typeof rootReducer>
 
-export default store
+export const store = createStore(rootReducer);
+

@@ -2,42 +2,42 @@ import profilePageReducer, {postAddActionCreator, updateNewPostTextActionCreator
 import dialogPageReducer, {addMessageActionCreator, updateNewMessageActionCreator} from "./dialogsPageReducer";
 import sideBarReducer from "./sideBarReducer";
 
-export type PostsType = {
+ type PostsType = {
     id: number
     message: string
     likes: number
 };
-export type DialogsType = {
+ type DialogsType = {
     id: number
     name: string
 };
-export type MessagesType = {
+ type MessagesType = {
     id: number
     message: string
 };
-export type ProfilePageType = {
+ type ProfilePageType = {
     posts: Array<PostsType>
     newPostText: string
 };
-export type DialogPageType = {
+ type DialogPageType = {
     dialogs: Array<DialogsType>
     messages: Array<MessagesType>
     newMessageText: string
 };
-export type RootStateType = {
+ type RootStateType = {
     profilePage: ProfilePageType
     dialogPage: DialogPageType
     sideBar: {}
 };
-export type StoreType = {
+ type StoreType = {
     _state: RootStateType
     _rerenderTree: () => void
     subscribe: (observer: () => void) => void
     getState: () => RootStateType
     dispatch: (action: PostActionType | MessageActionType ) => void
 };
-export type PostActionType = ReturnType<typeof postAddActionCreator> | ReturnType<typeof updateNewPostTextActionCreator>;
-export type MessageActionType = ReturnType<typeof addMessageActionCreator> | ReturnType<typeof updateNewMessageActionCreator>;
+ type PostActionType = ReturnType<typeof postAddActionCreator> | ReturnType<typeof updateNewPostTextActionCreator>;
+ type MessageActionType = ReturnType<typeof addMessageActionCreator> | ReturnType<typeof updateNewMessageActionCreator>;
 
 
 
@@ -87,4 +87,4 @@ let store: StoreType = {
     }
 };
 
-export default store;
+//export default store;

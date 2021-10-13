@@ -1,5 +1,15 @@
 import React from "react";
-import {MessageActionType, PostActionType, PostsType, ProfilePageType} from "./store";
+import {addMessageActionCreator, updateNewMessageActionCreator} from "./dialogsPageReducer";
+
+type PostActionType = ReturnType<typeof postAddActionCreator> | ReturnType<typeof updateNewPostTextActionCreator>;
+type MessageActionType = ReturnType<typeof addMessageActionCreator> | ReturnType<typeof updateNewMessageActionCreator>;
+export type PostsType = {
+    id: number
+    message: string
+    likes: number
+};
+
+
 
 export const postAddActionCreator = () => {
     return {type: "POST-ADD"} as const
@@ -7,17 +17,18 @@ export const postAddActionCreator = () => {
 export const updateNewPostTextActionCreator = (text: string) => {
     return {type: "UPDATE-NEW-POST-TEXT", newText: text} as const
 };
-let initialState =  {
+const initialState =  {
     posts: [
         {id: 1, message: 'Hi, how are you?', likes: 3},
         {id: 2, message: 'It\'s my first post', likes: 6},
         {id: 3, message: 'I like JS!!!', likes: 75},
         {id: 4, message: 'Just, do it!!!', likes: 10}
-    ],
+    ] as PostsType[],
     newPostText: "",
 }
+export type InitialStateTypeProfilePage = typeof initialState
 
-const profilePageReducer = (state: ProfilePageType = initialState, action: PostActionType | MessageActionType) => {
+const profilePageReducer = (state: InitialStateTypeProfilePage = initialState, action: PostActionType | MessageActionType): InitialStateTypeProfilePage => {
     switch (action.type) {
         case 'POST-ADD':
             let newPost: PostsType = {

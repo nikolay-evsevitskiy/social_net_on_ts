@@ -1,17 +1,10 @@
 import React, {ChangeEvent} from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
-import { PostsType} from "../../../Redux/store";
+import {MyPostsPropsType} from "./MyPostsContainer";
 
-type MyPostType = {
-    posts: Array<PostsType>
-    newPostText: string
-    addPost: () => void
-    updateNewPostText: (newText: string) => void
 
-}
-
-function MyPosts(props: MyPostType) {
+function MyPosts(props: MyPostsPropsType) {
     const onAddPost = () => {
         props.addPost()
     };
