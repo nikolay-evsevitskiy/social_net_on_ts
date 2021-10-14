@@ -35,16 +35,10 @@ const profilePageReducer = (state: InitialStateTypeProfilePage = initialState, a
                 message: state.newPostText,
                 likes: 0
             };
-            const stateCopy = {...state}
-            stateCopy.posts = [...state.posts]
-            stateCopy.posts.push(newPost)
-            stateCopy.newPostText = '';
-            return stateCopy;
+            return {...state, posts: [...state.posts, newPost], newPostText: ''};
         }
         case 'UPDATE-NEW-POST-TEXT': {
-            const stateCopy = {...state}
-            stateCopy.newPostText = action.newText;
-            return stateCopy;
+            return {...state, newPostText: action.newText};
         }
         default:
             return state;

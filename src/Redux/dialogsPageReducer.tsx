@@ -39,22 +39,15 @@ export type InitialStateTypeDialogsPage = typeof initialState
 const dialogPageReducer = (state: InitialStateTypeDialogsPage = initialState, action: PostActionType | MessageActionType): InitialStateTypeDialogsPage => {
     switch (action.type) {
         case 'ADD-MESSAGE': {
-            const copyState = {...state}
             const newText: MessagesType = {
                 id: new Date().getTime(),
                 message: state.newMessageText
             };
-            copyState.messages = [...state.messages]
-            copyState.messages.push(newText);
-            copyState.newMessageText = '';
-            return copyState;
+            return {...state, messages: [...state.messages, newText], newMessageText: ''};
         }
         case 'UPDATE-NEW-MESSAGE-TEXT': {
-            const copyState = {...state}
-            copyState.newMessageText = action.newText;
-            return copyState;
+            return {...state, newMessageText: action.newText};
         }
-
         default:
             return state;
     }
