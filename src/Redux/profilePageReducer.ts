@@ -1,4 +1,4 @@
-import React from "react";
+
 import {addMessageActionCreator, updateNewMessageActionCreator} from "./dialogsPageReducer";
 
 type PostActionType = ReturnType<typeof postAddActionCreator> | ReturnType<typeof updateNewPostTextActionCreator>;

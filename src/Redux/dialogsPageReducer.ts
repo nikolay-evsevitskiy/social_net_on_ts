@@ -1,4 +1,4 @@
-import React from "react";
+
 import {postAddActionCreator, updateNewPostTextActionCreator} from "./profilePageReducer";
 
 export type MessagesType = {

@@ -1,4 +1,3 @@
-import React from 'react';
 import {
     addMessageActionCreator,
     DialogsType,
@@ -10,7 +9,7 @@ import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
 import {Dispatch} from 'redux';
 
-type MapStatePropsType = {
+type MapStateToPropsType = {
     dialogs: Array<DialogsType>
     messages: Array<MessagesType>
     newMessageText: string
@@ -20,9 +19,9 @@ type MapDispatchToPropsType = {
     addMessage: () => void
 }
 
-export type DialogsPropsType = MapStatePropsType & MapDispatchToPropsType
+export type DialogsPropsType = MapStateToPropsType & MapDispatchToPropsType
 
-let mapStateToProps = (state: AppStateType): MapStatePropsType => {
+let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         dialogs: state.dialogPage.dialogs,
         messages: state.dialogPage.messages,
