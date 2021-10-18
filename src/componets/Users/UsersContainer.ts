@@ -12,7 +12,6 @@ type MapDispatchToPropsType = {
     unfollow: (userId: number) => void
     setUsers: (users:  UserType[]) => void
 }
-export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {

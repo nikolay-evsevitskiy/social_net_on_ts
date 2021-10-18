@@ -1,67 +1,72 @@
 import React from 'react'
-import {UsersPropsType} from "./UsersContainer";
 import s from './Users.module.css'
+import axios from "axios";
+import {InitialStateTypeUsersPage, UserType} from "../../Redux/usersPageReducer";
+import userPhoto from '../../assets/images/5546667.png'
 
-const Users = (props: UsersPropsType) => {
-    if (props.usersPage.users.length === 0) {
-        props.setUsers([
-                {
-                    id: 1,
-                    photoUrl: 'https://www.shareicon.net/data/512x512/2016/05/29/772559_user_512x512.png',
-                    followed: true,
-                    fullName: 'Mark',
-                    status: 'I am better',
-                    location: {country: 'Belarus', city: 'Minsk'}
-                },
-                {
-                    id: 2,
-                    photoUrl: 'https://www.shareicon.net/data/512x512/2016/05/29/772559_user_512x512.png',
-                    followed: true,
-                    fullName: 'Aleksandr',
-                    status: 'Boring(',
-                    location: {country: 'Russia', city: 'Moscow'}
-                },
-                {
-                    id: 3,
-                    photoUrl: 'https://www.shareicon.net/data/512x512/2016/05/29/772559_user_512x512.png',
-                    followed: false,
-                    fullName: 'Katya',
-                    status: 'I am pretty',
-                    location: {country: 'Ukraine', city: 'Kiev'}
-                },
-            ]
-        )
+type PropsType = {
+    usersPage: InitialStateTypeUsersPage
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+    setUsers: (users:  UserType[]) => void
+}
+type PhotosPropsType = {
+    small: string | null
+    large: string | null
+}
+type ItemsPropsType = {
+    name: string
+    id: number
+    uniqueUrlName: null
+    photos: PhotosPropsType
+    status: string | null
+    followed: boolean
+}
+type GetPropsType = Array<ItemsPropsType>
+
+class Users extends React.Component<PropsType> {
+
+
+    componentDidMount() {
+        axios.get<any>("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+            this.props.setUsers(response.data.items)
+        })
     }
-    return (
-        <div>
+
+    render() {
+        return <div>
             {
-                props.usersPage.users.map(u => <div key={u.id}>
+                this.props.usersPage.users.map(u => <div key={u.id}>
                     <span>
                         <div className={s.item}>
-                            <img src={u.photoUrl}
+                            <img src={u.photoUrl != null ? u.photoUrl : userPhoto}
                                  alt="avatar"/>
                         </div>
                         <div>
                             {u.followed
-                                ? <button onClick={() => {props.unfollow(u.id)}}>Unfollow</button>
-                                : <button onClick={() => {props.follow(u.id)}}>Follow</button> }
+                                ? <button onClick={() => {
+                                    this.props.unfollow(u.id)
+                                }}>Unfollow</button>
+                                : <button onClick={() => {
+                                    this.props.follow(u.id)
+                                }}>Follow</button>}
                         </div>
                     </span>
                     <span>
                         <span>
-                            <div>{u.fullName}</div>
+                            <div>{u.name}</div>
                             <div>{u.status}</div>
                         </span>
                         <span>
-                            <div>{u.location.country}</div>
-                            <div>{u.location.city}</div>
+                            <div>{"u.location.country"}</div>
+                            <div>{"u.location.city"}</div>
                         </span>
                     </span>
                 </div>)
 
             }
-        </div>
-    )
+        </div>;
+    }
 }
 
 export default Users
