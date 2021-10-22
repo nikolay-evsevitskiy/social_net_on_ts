@@ -1,53 +1,35 @@
 import React from 'react'
-import s from './Users.module.css'
-import axios from "axios";
-import {InitialStateTypeUsersPage, UserType} from "../../Redux/usersPageReducer";
-import userPhoto from '../../assets/images/5546667.png'
+import s from "./Users.module.css";
+import userPhoto from "../../assets/images/5546667.png";
+import {InitialStateTypeUsersPage} from "../../Redux/usersPageReducer";
 
-type PropsType = {
-    usersPage: InitialStateTypeUsersPage
-    follow: (userId: number) => void
+type UsersPageType = {
+    usersCount: number
+    pageSize: number
+    onPageChanged: (pageNumber: number) => void
+    currentPage: number
     unfollow: (userId: number) => void
-    setUsers: (users: UserType[]) => void
-    setCurrentPage: (currentPage: number) => void
-    setTotalUserCount: (totalCount: number) => void
+    follow: (userId: number) => void
+    usersPage: InitialStateTypeUsersPage
 }
 
-class Users extends React.Component<PropsType> {
-    componentDidMount() {
-        axios.get<any>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.usersPage.currentPage}&count=${this.props.usersPage.pageSize}`)
-            .then(response => {
-                this.props.setUsers(response.data.items)
-                this.props.setTotalUserCount(response.data.totalCount)
-            })
+const Users = (props: UsersPageType) => {
+    let pageCount = Math.ceil(props.usersCount / props.pageSize)
+    let pages = []
+    for (let i = 1; i <= pageCount; i++) {
+        pages.push(i)
     }
 
-    onPageChanged = (pageNumber: number) => {
-        this.props.setCurrentPage(pageNumber)
-        axios.get<any>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.usersPage.pageSize}`)
-            .then(response => {
-                this.props.setUsers(response.data.items)
-            })
-    }
-
-    render() {
-
-        let pageCount = Math.ceil(this.props.usersPage.totalUsersCount / this.props.usersPage.pageSize)
-        let pages = []
-        for (let i = 1; i <= pageCount; i++) {
-            pages.push(i)
-        }
-
-        return <div>
-            <div>
-                {pages.map(p => {
-                    return <span onClick={() => {
-                        this.onPageChanged(p)
-                    }} className={this.props.usersPage.currentPage === p ? s.selectedPage : ''}>{p}</span>
-                })}
-            </div>
-            {
-                this.props.usersPage.users.map(u => <div key={u.id}>
+    return <div>
+        <div>
+            {pages.map(p => {
+                return <span onClick={() => {
+                    props.onPageChanged(p)
+                }} className={props.currentPage === p ? s.selectedPage : ''}>{p}</span>
+            })}
+        </div>
+        {
+            props.usersPage.users.map(u => <div key={u.id}>
                     <span>
                         <div className={s.item}>
                             <img src={u.photoUrl != null ? u.photoUrl : userPhoto}
@@ -56,14 +38,14 @@ class Users extends React.Component<PropsType> {
                         <div>
                             {u.followed
                                 ? <button onClick={() => {
-                                    this.props.unfollow(u.id)
+                                    props.unfollow(u.id)
                                 }}>Unfollow</button>
                                 : <button onClick={() => {
-                                    this.props.follow(u.id)
+                                    props.follow(u.id)
                                 }}>Follow</button>}
                         </div>
                     </span>
-                    <span>
+                <span>
                         <span>
                             <div>{u.name}</div>
                             <div>{u.status}</div>
@@ -73,11 +55,11 @@ class Users extends React.Component<PropsType> {
                             <div>{"u.location.city"}</div>
                         </span>
                     </span>
-                </div>)
+            </div>)
 
-            }
-        </div>;
-    }
+        }
+    </div>;
+
 }
 
 export default Users
