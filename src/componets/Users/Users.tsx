@@ -1,7 +1,7 @@
 import React from 'react'
-import s from "./Users.module.css";
-import userPhoto from "../../assets/images/5546667.png";
-import {InitialStateTypeUsersPage} from "../../Redux/usersPageReducer";
+import s from './Users.module.css';
+import userPhoto from '../../assets/images/5546667.png';
+import {InitialStateTypeUsersPage} from '../../Redux/usersPageReducer';
 
 type UsersPageType = {
     usersCount: number
