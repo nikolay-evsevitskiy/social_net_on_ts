@@ -1,5 +1,5 @@
 
-import {postAddActionCreator, updateNewPostTextActionCreator} from "./profilePageReducer";
+import {postAdd, updateNewPostText} from "./profilePageReducer";
 
 export type MessagesType = {
     id: number
@@ -10,14 +10,14 @@ export type DialogsType = {
     name: string
 };
 type MessageActionType = ReturnType<typeof addMessageActionCreator> | ReturnType<typeof updateNewMessageActionCreator>;
-type PostActionType = ReturnType<typeof postAddActionCreator> | ReturnType<typeof updateNewPostTextActionCreator>;
+type PostActionType = ReturnType<typeof postAdd> | ReturnType<typeof updateNewPostText>;
 
 
 export const addMessageActionCreator = () => {
     return {type: "ADD-MESSAGE"} as const
 };
-export const updateNewMessageActionCreator = (text: string) => {
-    return {type: "UPDATE-NEW-MESSAGE-TEXT", newText: text} as const
+export const updateNewMessageActionCreator = (newText: string) => {
+    return {type: "UPDATE-NEW-MESSAGE-TEXT", newText} as const
 };
 const initialState = {
     dialogs: [

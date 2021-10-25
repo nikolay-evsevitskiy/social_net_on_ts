@@ -1,4 +1,4 @@
-import profilePageReducer, {postAddActionCreator, updateNewPostTextActionCreator} from "./profilePageReducer";
+import profilePageReducer, {postAdd, ProfileStateType, updateNewPostText} from "./profilePageReducer";
 import dialogPageReducer, {addMessageActionCreator, updateNewMessageActionCreator} from "./dialogsPageReducer";
 import sideBarReducer from "./sideBarReducer";
 
@@ -18,6 +18,7 @@ import sideBarReducer from "./sideBarReducer";
  type ProfilePageType = {
     posts: Array<PostsType>
     newPostText: string
+     profile: ProfileStateType
 };
  type DialogPageType = {
     dialogs: Array<DialogsType>
@@ -36,7 +37,7 @@ import sideBarReducer from "./sideBarReducer";
     getState: () => RootStateType
     dispatch: (action: PostActionType | MessageActionType ) => void
 };
- type PostActionType = ReturnType<typeof postAddActionCreator> | ReturnType<typeof updateNewPostTextActionCreator>;
+ type PostActionType = ReturnType<typeof postAdd> | ReturnType<typeof updateNewPostText>;
  type MessageActionType = ReturnType<typeof addMessageActionCreator> | ReturnType<typeof updateNewMessageActionCreator>;
 
 
@@ -49,8 +50,9 @@ let store: StoreType = {
                 {id: 2, message: 'It\'s my first post', likes: 6},
                 {id: 3, message: 'I like JS!!!', likes: 75},
                 {id: 4, message: 'Just, do it!!!', likes: 10}
-            ],
+            ] as PostsType[],
             newPostText: "",
+            profile: {} as ProfileStateType
         },
         dialogPage: {
             dialogs: [
@@ -78,7 +80,7 @@ let store: StoreType = {
     getState() {
         return this._state;
     },
-    dispatch(action) {
+    dispatch(action: any) {
         this._state.profilePage = profilePageReducer(this._state.profilePage, action);
         this._state.dialogPage = dialogPageReducer(this._state.dialogPage, action);
         this._state.sideBar = sideBarReducer(this._state.sideBar, action);

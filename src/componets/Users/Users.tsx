@@ -2,6 +2,7 @@ import React from 'react'
 import s from './Users.module.css';
 import userPhoto from '../../assets/images/5546667.png';
 import {InitialStateTypeUsersPage} from '../../Redux/usersPageReducer';
+import {NavLink} from "react-router-dom";
 
 type UsersPageType = {
     usersCount: number
@@ -32,8 +33,10 @@ const Users = (props: UsersPageType) => {
             props.usersPage.users.map(u => <div key={u.id}>
                     <span>
                         <div className={s.item}>
+                            <NavLink to={'/profile/' + u.id}>
                             <img src={u.photoUrl != null ? u.photoUrl : userPhoto}
                                  alt="avatar"/>
+                                </NavLink>
                         </div>
                         <div>
                             {u.followed

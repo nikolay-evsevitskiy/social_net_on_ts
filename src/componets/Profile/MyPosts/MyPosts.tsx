@@ -1,10 +1,15 @@
 import React, {ChangeEvent} from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
-import {MyPostsPropsType} from "./MyPostsContainer";
+import {PostsType} from "../../../Redux/profilePageReducer";
 
-
-function MyPosts(props: MyPostsPropsType) {
+type PropType = {
+    addPost: () => void
+    updateNewPostText: (newText: string) => void
+    posts: Array<PostsType>
+    newPostText: string
+}
+function MyPosts(props: PropType) {
     const onAddPost = () => {
         props.addPost()
     };
