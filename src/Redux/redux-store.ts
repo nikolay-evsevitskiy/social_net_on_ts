@@ -1,15 +1,17 @@
-import { combineReducers } from 'redux';
+import {combineReducers} from 'redux';
 import {createStore} from 'redux';
 import profilePageReducer from "./profilePageReducer";
 import dialogPageReducer from "./dialogsPageReducer";
 import sideBarReducer from "./sideBarReducer";
 import usersReducer from "./usersPageReducer";
+import authReducer from "./auth-reducer";
 
 export const rootReducer = combineReducers({
     profilePage: profilePageReducer,
     dialogPage: dialogPageReducer,
     sideBar: sideBarReducer,
-    usersPage: usersReducer
+    usersPage: usersReducer,
+    auth: authReducer
 })
 
 export type AppStateType = ReturnType<typeof rootReducer>

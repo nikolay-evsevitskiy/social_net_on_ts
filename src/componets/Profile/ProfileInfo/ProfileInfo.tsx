@@ -40,6 +40,11 @@ const ProfileInfo = (props: ProfileInfoType) => {
                 <div>
                     <p>
                         LOOKING FOR A JOB!!!!
+                        <div>
+                            {props.profile.lookingForAJob && <img
+                                src="https://cdn1.vectorstock.com/i/1000x1000/88/00/looking-for-a-job-vector-19278800.jpg"
+                                alt="loking for a job"/>}
+                        </div>
                     </p>
                     <p>Description: {props.profile.lookingForAJobDescription}</p>
                 </div>
