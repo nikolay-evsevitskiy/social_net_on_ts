@@ -13,6 +13,8 @@ type UsersPageType = {
     unfollow: (userId: number) => void
     follow: (userId: number) => void
     usersPage: InitialStateTypeUsersPage
+    toggleIsFollowingProgress: (userId: number, followingInProgress: boolean) => void
+    followingInProgress: number[]
 }
 
 const Users = (props: UsersPageType) => {
@@ -41,18 +43,22 @@ const Users = (props: UsersPageType) => {
                         </div>
                         <div>
                             {u.followed
-                                ? <button onClick={() => {
+                                ? <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
+                                    props.toggleIsFollowingProgress(u.id, true)
                                     unfollow(u.id).then(data => {
                                         if (data.resultCode === 0) {
                                             props.unfollow(u.id)
                                         }
+                                        props.toggleIsFollowingProgress(u.id, false)
                                     })
                                 }}>Unfollow</button>
-                                : <button onClick={() => {
+                                : <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
+                                    props.toggleIsFollowingProgress(u.id, true)
                                     follow(u.id).then(data => {
                                         if (data.resultCode === 0) {
                                             props.follow(u.id)
                                         }
+                                        props.toggleIsFollowingProgress(u.id, false)
                                     })
                                 }}>Follow</button>}
                         </div>
