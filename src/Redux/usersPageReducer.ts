@@ -30,6 +30,7 @@ export type InitialStateTypeUsersPage = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    followingInProgress: boolean
 }
 
 
@@ -38,7 +39,8 @@ const initialState: InitialStateTypeUsersPage = {
     pageSize: 5,
     totalUsersCount: 0,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    followingInProgress: false
 }
 
 const usersReducer = (state: InitialStateTypeUsersPage = initialState, action: ActionType): InitialStateTypeUsersPage => {
