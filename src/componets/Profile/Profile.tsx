@@ -4,6 +4,7 @@ import ProfileInfo from './ProfileInfo/ProfileInfo';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
 import {ProfileStateType} from "../../Redux/profilePageReducer";
 
+
 type ProfileType = {
     profile: ProfileStateType
 }
@@ -11,6 +12,7 @@ type ProfileType = {
 
 
 function Profile(props: ProfileType) {
+
     return (
         <div className={s.content}>
             <ProfileInfo profile={props.profile}/>

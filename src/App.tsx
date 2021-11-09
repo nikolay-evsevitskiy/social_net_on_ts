@@ -9,6 +9,7 @@ import DialogsContainer from './componets/Dialogs/DialogsContainer';
 import {UsersContainer} from './componets/Users/UsersContainer';
 import ProfileAPIComponent from "./componets/Profile/ProfileContainer";
 import HeaderContainer from "./componets/Header/HeaderContainer";
+import {Login} from "./componets/Login/Login";
 
 
 const App = () => {
@@ -25,6 +26,7 @@ const App = () => {
                     <Route path={'/music'} render={() => <Music/>}/>
                     <Route path={'/settings'} render={() => <Settings/>}/>
                     <Route path={'/users'} render={() => <UsersContainer/>}/>
+                    <Route path={'/login'} render={() => <Login/>}/>
                 </div>
             </div>
         </BrowserRouter>
