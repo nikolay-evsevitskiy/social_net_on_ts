@@ -37,7 +37,7 @@ export const usersAPI = {
             .then(response => response.data)
     },
     setUser(userID: string) {
-        return instance.get<ProfileStateType>(`profile/` + userID)
+        return instance.get<ProfileStateType>(`profile/${userID}`)
     }
 }
 

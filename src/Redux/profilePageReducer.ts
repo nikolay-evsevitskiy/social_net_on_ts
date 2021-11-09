@@ -1,13 +1,15 @@
 import {addMessageActionCreator, updateNewMessageActionCreator} from "./dialogsPageReducer";
+import {usersAPI} from "../api/api";
 type PostActionType = ReturnType<typeof postAdd> | ReturnType<typeof updateNewPostText>;
 type MessageActionType = ReturnType<typeof addMessageActionCreator> | ReturnType<typeof updateNewMessageActionCreator>;
-type SetUserProfile = ReturnType<typeof setUserProfile>
+type SetUserProfileType = ReturnType<typeof setUserProfile>
+type OwnActionType = PostActionType | MessageActionType | SetUserProfileType
 export type PostsType = {
     id: number
     message: string
     likes: number
 };
-export type InitialStateTypeProfilePage = typeof initialState
+export type InitialStateTypeProfilePageType = typeof initialState
 type ContactsType = {
     facebook: null | string
     website: null | string
@@ -28,7 +30,7 @@ export type ProfileStateType = {
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
-    userId: number
+    userId: string
     photos: PhotoType
 
 }
@@ -45,7 +47,7 @@ const initialState = {
     profile: {} as ProfileStateType
 }
 
-const profilePageReducer = (state: InitialStateTypeProfilePage = initialState, action: PostActionType | MessageActionType | SetUserProfile): InitialStateTypeProfilePage => {
+const profilePageReducer = (state: InitialStateTypeProfilePageType = initialState, action: OwnActionType): InitialStateTypeProfilePageType => {
     switch (action.type) {
         case 'POST-ADD': {
             const newPost: PostsType = {
@@ -75,5 +77,12 @@ export const updateNewPostText = (newText: string) => {
 export const setUserProfile = (profile: ProfileStateType) => {
     return {type: 'SET-USER-PROFILE', profile} as const
 };
+
+export const getUserProfile = (userId: string) =>  {
+    return (dispatch: any) => {
+    usersAPI.setUser(userId).then(response => {
+        dispatch(setUserProfile(response.data))
+    })
+};}
 
 export default profilePageReducer
