@@ -1,6 +1,7 @@
 import React from 'react';
 import {ProfileStateType} from "../../../Redux/profilePageReducer";
 import {Preloader} from "../../Common/Preloader/Preloader";
+import style from './ProfileInfo.module.css'
 
 type ProfileInfoType = {
     profile: ProfileStateType
@@ -41,7 +42,7 @@ const ProfileInfo = (props: ProfileInfoType) => {
                     <p>
                         LOOKING FOR A JOB!!!!
                         <div>
-                            {props.profile.lookingForAJob && <img
+                            {props.profile.lookingForAJob && <img className={style.imgOfLookingFor}
                                 src="https://cdn1.vectorstock.com/i/1000x1000/88/00/looking-for-a-job-vector-19278800.jpg"
                                 alt="loking for a job"/>}
                         </div>

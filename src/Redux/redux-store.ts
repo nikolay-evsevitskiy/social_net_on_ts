@@ -5,6 +5,8 @@ import dialogPageReducer from "./dialogsPageReducer";
 import sideBarReducer from "./sideBarReducer";
 import usersReducer from "./usersPageReducer";
 import authReducer from "./auth-reducer";
+import {applyMiddleware} from 'redux';
+import thunkMiddleware from 'redux-thunk';
 
 export const rootReducer = combineReducers({
     profilePage: profilePageReducer,
@@ -16,5 +18,5 @@ export const rootReducer = combineReducers({
 
 export type AppStateType = ReturnType<typeof rootReducer>
 
-export const store = createStore(rootReducer);
+export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 

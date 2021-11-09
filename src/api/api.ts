@@ -1,5 +1,6 @@
 import axios from "axios";
 import {InitialStateAuthDataType} from "../Redux/auth-reducer";
+import {ProfileStateType} from "../Redux/profilePageReducer";
 
 type followType = {
     data: {}
@@ -21,21 +22,32 @@ const instance = axios.create({
     }
 })
 
-export const getUsers = (currentPage: number = 1, pageSize: number = 10) => {
-    return instance.get<getUsersType>(`users?page=${currentPage}&count=${pageSize}`)
-        .then(response => response.data)
+
+export const usersAPI = {
+    getUsers(currentPage: number = 1, pageSize: number = 10) {
+        return instance.get<getUsersType>(`users?page=${currentPage}&count=${pageSize}`)
+            .then(response => response.data)
+    },
+    unfollow(id: number) {
+        return instance.delete<followType>(`follow/${id}`)
+            .then(response => response.data)
+    },
+    follow(id: number) {
+        return instance.post<followType>(`follow/${id}`, {})
+            .then(response => response.data)
+    },
+    setUser(userID: string) {
+        return instance.get<ProfileStateType>(`profile/` + userID)
+    }
 }
 
-export const unfollow = (id: number) => {
-    return instance.delete<followType>(`follow/${id}`)
-        .then(response => response.data)
+export const authAPI = {
+
+    logIn() {
+        return instance.get<InitialStateAuthDataType>(`auth/me`, {
+            withCredentials: true
+        })
+    }
+
 }
 
-export const follow = (id: number) => {
-    return instance.post<followType>(`follow/${id}`, {})
-        .then(response => response.data)
-}
-
-export const logIn = () => {
-    return instance.get<InitialStateAuthDataType>(`auth/me`)
-}
