@@ -5,8 +5,8 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import News from './componets/News/News';
 import Music from './componets/Music/Music';
 import Settings from './componets/Setting/Settings';
-import DialogsContainer from './componets/Dialogs/DialogsContainer';
-import {UsersContainer} from './componets/Users/UsersContainer';
+import DialogsAPIComponent from './componets/Dialogs/DialogsContainer';
+import UsersAPIComponent from './componets/Users/UsersContainer';
 import ProfileAPIComponent from "./componets/Profile/ProfileContainer";
 import HeaderContainer from "./componets/Header/HeaderContainer";
 import {Login} from "./componets/Login/Login";
@@ -20,12 +20,12 @@ const App = () => {
                 <HeaderContainer/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
-                    <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
+                    <Route path={'/dialogs'} render={() => <DialogsAPIComponent/>}/>
                     <Route path={'/profile/:userId?'} render={() => <ProfileAPIComponent/>}/>
                     <Route path={'/news'} render={() => <News/>}/>
                     <Route path={'/music'} render={() => <Music/>}/>
                     <Route path={'/settings'} render={() => <Settings/>}/>
-                    <Route path={'/users'} render={() => <UsersContainer/>}/>
+                    <Route path={'/users'} render={() => <UsersAPIComponent/>}/>
                     <Route path={'/login'} render={() => <Login/>}/>
                 </div>
             </div>

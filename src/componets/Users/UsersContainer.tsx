@@ -10,7 +10,15 @@ import React from 'react';
 import Users from './Users';
 import {Preloader} from "../Common/Preloader/Preloader";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
+import {compose} from 'redux';
 
+type MapDispatchToPropsType = {
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+    setCurrentPage: (currentPage: number) => void
+    getUser: (currentPage: number, pageSize: number) => void
+
+}
 type MapStateToPropsType = {
     usersPage: InitialStateTypeUsersPage
     pageSize: number
@@ -19,17 +27,7 @@ type MapStateToPropsType = {
     isFetching: boolean
     followingInProgress: number[]
 }
-type UsersAPIComponentType = {
-    pageSize: number
-    totalUsersCount: number
-    currentPage: number
-    usersPage: InitialStateTypeUsersPage
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
-    setCurrentPage: (currentPage: number) => void
-    followingInProgress: number[],
-    getUser: (currentPage: number, pageSize: number) => void
-}
+type UsersAPIComponentType = MapStateToPropsType & MapDispatchToPropsType
 
 class UsersAPIComponent extends React.Component<UsersAPIComponentType> {
     componentDidMount() {
@@ -68,10 +66,13 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 
 }
 
-export const UsersContainer = WithAuthRedirect(connect(mapStateToProps, {
-    follow,
-    unfollow,
-    setCurrentPage,
-    getUser
+export default compose<React.ComponentType>(
+    WithAuthRedirect,
+    connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, {
+        follow,
+        unfollow,
+        setCurrentPage,
+        getUser
 
-})(UsersAPIComponent))
+    })
+)(UsersAPIComponent)
