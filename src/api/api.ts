@@ -13,6 +13,11 @@ type getUsersType = {
     items: []
     totalCount: number
 }
+type UpdateStatusType = {
+    resultCode: number
+    messages: [string]
+    data: {}
+}
 
 const instance = axios.create({
     withCredentials: true,
@@ -36,8 +41,8 @@ export const usersAPI = {
         return instance.post<followType>(`follow/${id}`, {})
             .then(response => response.data)
     },
-    setUser(userID: string) {
-        return instance.get<ProfileStateType>(`profile/${userID}`)
+    getProfile(userID: string) {
+        return profileAPI.getProfile(userID)
     }
 }
 
@@ -49,5 +54,17 @@ export const authAPI = {
         })
     }
 
+}
+
+export const profileAPI = {
+    getProfile(userID: string) {
+        return instance.get<ProfileStateType>(`profile/${userID}`)
+    },
+    getStatus(userID: string) {
+        return instance.get<string>(`profile/status/${userID}`)
+    },
+    updateStatus(status: string) {
+        return instance.put<UpdateStatusType>(`profile/status`, {status: status})
+    }
 }
 

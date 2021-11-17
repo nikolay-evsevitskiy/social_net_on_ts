@@ -2,9 +2,12 @@ import React from 'react';
 import {ProfileStateType} from "../../../Redux/profilePageReducer";
 import {Preloader} from "../../Common/Preloader/Preloader";
 import style from './ProfileInfo.module.css'
+import ProfileStatus from "./PrfileStatus/ProfileStatus";
 
 type ProfileInfoType = {
     profile: ProfileStateType
+    status: string
+    updateStatus: (status: string) => void
 }
 
 
@@ -14,13 +17,16 @@ const ProfileInfo = (props: ProfileInfoType) => {
     }
     return (
         <div>
+            {/*<div>*/}
+            {/*    <img*/}
+            {/*        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjYFV-bwRLTx5vbXeIRyRZDH86KNG-4ktGcg&usqp=CAU"/>*/}
+            {/*</div>*/}
             <div>
-                <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjYFV-bwRLTx5vbXeIRyRZDH86KNG-4ktGcg&usqp=CAU"/>
-            </div>
-            <div>
-                <div>Ava + description</div>
-                <img src={props.profile.photos.large}/>
+                <div>
+                    <img alt={'Profile photo'} src={props.profile.photos.large}/>
+                    <ProfileStatus  status={props.status} updateStatus={props.updateStatus}/>
+
+                </div>
                 <div>Full name: {props.profile.fullName}</div>
                 <div>
                     About me: {props.profile.aboutMe}
@@ -43,8 +49,8 @@ const ProfileInfo = (props: ProfileInfoType) => {
                         LOOKING FOR A JOB!!!!
                         <div>
                             {props.profile.lookingForAJob && <img className={style.imgOfLookingFor}
-                                src="https://cdn1.vectorstock.com/i/1000x1000/88/00/looking-for-a-job-vector-19278800.jpg"
-                                alt="loking for a job"/>}
+                                                                  src="https://cdn1.vectorstock.com/i/1000x1000/88/00/looking-for-a-job-vector-19278800.jpg"
+                                                                  alt="loking for a job"/>}
                         </div>
                     </p>
                     <p>Description: {props.profile.lookingForAJobDescription}</p>
