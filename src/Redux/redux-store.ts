@@ -7,13 +7,16 @@ import usersReducer from "./usersPageReducer";
 import authReducer from "./auth-reducer";
 import {applyMiddleware} from 'redux';
 import thunkMiddleware from 'redux-thunk';
+import { reducer as formReducer } from 'redux-form'
+
 
 export const rootReducer = combineReducers({
     profilePage: profilePageReducer,
     dialogPage: dialogPageReducer,
     sideBar: sideBarReducer,
     usersPage: usersReducer,
-    auth: authReducer
+    auth: authReducer,
+    form: formReducer
 })
 
 export type AppStateType = ReturnType<typeof rootReducer>
