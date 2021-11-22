@@ -5,7 +5,7 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import News from './componets/News/News';
 import Music from './componets/Music/Music';
 import Settings from './componets/Setting/Settings';
-import DialogsAPIComponent from './componets/Dialogs/DialogsContainer';
+import Dialogs from './componets/Dialogs/DialogsContainer';
 import UsersAPIComponent from './componets/Users/UsersContainer';
 import ProfileAPIComponent from "./componets/Profile/ProfileContainer";
 import HeaderContainer from "./componets/Header/HeaderContainer";
@@ -20,7 +20,7 @@ const App = () => {
                 <HeaderContainer/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
-                    <Route path={'/dialogs'} render={() => <DialogsAPIComponent/>}/>
+                    <Route path={'/dialogs'} render={() => <Dialogs/>}/>
                     <Route path={'/profile/:userId?'} render={() => <ProfileAPIComponent/>}/>
                     <Route path={'/news'} render={() => <News/>}/>
                     <Route path={'/music'} render={() => <Music/>}/>

@@ -1,46 +1,39 @@
 import {
     addMessageActionCreator,
     DialogsType,
-    MessagesType,
-    updateNewMessageActionCreator
+    MessagesType
 } from '../../Redux/dialogsPageReducer'
-import DialogsAPIComponent from './Dialogs';
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
 import {compose, Dispatch} from 'redux';
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 import React from "react";
+import Dialogs from "./Dialogs";
 
 type MapStateToPropsType = {
     dialogs: Array<DialogsType>
     messages: Array<MessagesType>
-    newMessageText: string
+    isAuth: boolean
 }
 type MapDispatchToPropsType = {
-    onMessageHandler: (newText: string) => void
-    addMessage: () => void
+    addMessage: (newMessage: string) => void
 }
-
-export type DialogsPropsType = MapStateToPropsType & MapDispatchToPropsType
 
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         dialogs: state.dialogPage.dialogs,
         messages: state.dialogPage.messages,
-        newMessageText: state.dialogPage.newMessageText
+        isAuth: state.auth.isAuth,
     }
 }
 let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     return {
-        onMessageHandler: (newText: string) => {
-            dispatch(updateNewMessageActionCreator(newText))
-        },
-        addMessage: () => {
-            dispatch(addMessageActionCreator())
+        addMessage: (newMessage) => {
+            dispatch(addMessageActionCreator(newMessage))
         }
     }
 }
 export default compose<React.ComponentType>(
     WithAuthRedirect,
     connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, mapDispatchToProps)
-)(DialogsAPIComponent);
+)(Dialogs);

@@ -1,6 +1,4 @@
 
-import {postAdd, updateNewPostText} from "./profilePageReducer";
-
 export type MessagesType = {
     id: number
     message: string
@@ -9,16 +7,10 @@ export type DialogsType = {
     id: number
     name: string
 };
-type MessageActionType = ReturnType<typeof addMessageActionCreator> | ReturnType<typeof updateNewMessageActionCreator>;
-type PostActionType = ReturnType<typeof postAdd> | ReturnType<typeof updateNewPostText>;
+type MessageActionType = ReturnType<typeof addMessageActionCreator>;
 
+export type InitialStateTypeDialogsPage = typeof initialState
 
-export const addMessageActionCreator = () => {
-    return {type: "ADD-MESSAGE"} as const
-};
-export const updateNewMessageActionCreator = (newText: string) => {
-    return {type: "UPDATE-NEW-MESSAGE-TEXT", newText} as const
-};
 const initialState = {
     dialogs: [
         {id: 1, name: 'Mark'},
@@ -31,26 +23,24 @@ const initialState = {
         {id: 1, message: 'Hi!'},
         {id: 2, message: 'How are you?'},
         {id: 3, message: 'Cool!!!'}
-    ] as MessagesType[],
-    newMessageText: ""
+    ] as MessagesType[]
 }
-export type InitialStateTypeDialogsPage = typeof initialState
 
-const dialogPageReducer = (state: InitialStateTypeDialogsPage = initialState, action: PostActionType | MessageActionType): InitialStateTypeDialogsPage => {
+const dialogPageReducer = (state: InitialStateTypeDialogsPage = initialState, action: MessageActionType): InitialStateTypeDialogsPage => {
     switch (action.type) {
         case 'ADD-MESSAGE': {
             const newText: MessagesType = {
                 id: new Date().getTime(),
-                message: state.newMessageText
+                message: action.newMessage
             };
-            return {...state, messages: [...state.messages, newText], newMessageText: ''};
+            return {...state, messages: [...state.messages, newText]};
         }
-        case 'UPDATE-NEW-MESSAGE-TEXT': {
-            return {...state, newMessageText: action.newText};
-        }
-        default:
-            return state;
+        default: return state
     }
+}
+
+export const addMessageActionCreator = (newMessage: string) => {
+    return {type: "ADD-MESSAGE", newMessage} as const
 };
 
 export default dialogPageReducer

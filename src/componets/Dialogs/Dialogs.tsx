@@ -1,21 +1,27 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
-import {DialogsPropsType} from "./DialogsContainer";
+import {AddMessageFormRedux} from "./DialogForm/DialogForm";
+import {DialogsType, MessagesType} from "../../Redux/dialogsPageReducer";
+import {Redirect} from "react-router-dom";
+
+type DialogsPropsType = {
+    dialogs: Array<DialogsType>
+    messages: Array<MessagesType>
+    addMessage: (values: string) => void
+    isAuth: boolean
+}
 
 
 const Dialogs = (props: DialogsPropsType) => {
 
     let dialogElements = props.dialogs.map((d) => <DialogItem id={d.id} key={d.id} name={d.name}/>);
     let messageElements = props.messages.map((m) => <Message text={m.message} key={m.id}/>);
-    let addMessage = () => {
-        props.addMessage()
+    let addMessage = (values: any) => {
+        props.addMessage(values.addMessageBody)
     };
-    let onMessageHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        let text = e.currentTarget.value;
-        props.onMessageHandler(text)
-    };
+    if (!props.isAuth) return  <Redirect to={'/login'}/>
 
     return (
         <div className={s.dialogs}>
@@ -25,12 +31,7 @@ const Dialogs = (props: DialogsPropsType) => {
             <div className={s.messages}>
                 {messageElements}
                 <div>
-                    <div>
-                        <textarea onChange={onMessageHandler} value={props.newMessageText}/>
-                    </div>
-                    <div>
-                        <button onClick={addMessage}>Add</button>
-                    </div>
+                    <AddMessageFormRedux onSubmit={addMessage}/>
                 </div>
             </div>
 

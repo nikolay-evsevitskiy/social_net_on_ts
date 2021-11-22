@@ -1,10 +1,9 @@
-import {addMessageActionCreator, updateNewMessageActionCreator} from "./dialogsPageReducer";
 import {profileAPI, usersAPI} from "../api/api";
-type PostActionType = ReturnType<typeof postAdd> | ReturnType<typeof updateNewPostText>;
-type MessageActionType = ReturnType<typeof addMessageActionCreator> | ReturnType<typeof updateNewMessageActionCreator>;
+
+type PostActionType = ReturnType<typeof postAdd>;
 type SetUserProfileType = ReturnType<typeof setUserProfile>
 type SetStatusProfileType = ReturnType<typeof setStatus>
-type OwnActionType = PostActionType | MessageActionType | SetUserProfileType | SetStatusProfileType
+type OwnActionType = PostActionType | SetUserProfileType | SetStatusProfileType
 export type PostsType = {
     id: number
     message: string
@@ -44,7 +43,6 @@ const initialState = {
         {id: 3, message: 'I like JS!!!', likes: 75},
         {id: 4, message: 'Just, do it!!!', likes: 10}
     ] as PostsType[],
-    newPostText: "",
     profile: {} as ProfileStateType,
     status: ''
 }
@@ -54,13 +52,10 @@ const profilePageReducer = (state: InitialStateTypeProfilePageType = initialStat
         case 'POST-ADD': {
             const newPost: PostsType = {
                 id: new Date().getTime(),
-                message: state.newPostText,
+                message: action.value,
                 likes: 0
             };
-            return {...state, posts: [...state.posts, newPost], newPostText: ''};
-        }
-        case 'UPDATE-NEW-POST-TEXT': {
-            return {...state, newPostText: action.newText};
+            return {...state, posts: [...state.posts, newPost]};
         }
         case 'SET-USER-PROFILE': {
             return {...state, profile: action.profile};
@@ -73,11 +68,8 @@ const profilePageReducer = (state: InitialStateTypeProfilePageType = initialStat
     }
 };
 
-export const postAdd = () => {
-    return {type: 'POST-ADD'} as const
-};
-export const updateNewPostText = (newText: string) => {
-    return {type: 'UPDATE-NEW-POST-TEXT', newText} as const
+export const postAdd = (value: string) => {
+    return {type: 'POST-ADD', value} as const
 };
 export const setUserProfile = (profile: ProfileStateType) => {
     return {type: 'SET-USER-PROFILE', profile} as const
@@ -86,27 +78,30 @@ export const setStatus = (status: string) => {
     return {type: 'SET-STATUS', status} as const
 };
 
-export const getUserProfile = (userId: string) =>  {
+export const getUserProfile = (userId: string) => {
     return (dispatch: any) => {
-    usersAPI.getProfile(userId).then(response => {
-        dispatch(setUserProfile(response.data))
-    })
-};}
-export const getStatus = (userId: string) =>  {
+        usersAPI.getProfile(userId).then(response => {
+            dispatch(setUserProfile(response.data))
+        })
+    };
+}
+export const getStatus = (userId: string) => {
     return (dispatch: any) => {
-    profileAPI.getStatus(userId)
-        .then(response => {
+        profileAPI.getStatus(userId)
+            .then(response => {
                 dispatch(setStatus(response.data))
-    })
-};}
-export const updateStatus = (status: string) =>  {
+            })
+    };
+}
+export const updateStatus = (status: string) => {
     return (dispatch: any) => {
-    profileAPI.updateStatus(status)
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setStatus(status))
-            }
-    })
-};}
+        profileAPI.updateStatus(status)
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(setStatus(status))
+                }
+            })
+    };
+}
 
 export default profilePageReducer
