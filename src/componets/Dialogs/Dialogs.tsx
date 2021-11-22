@@ -5,6 +5,7 @@ import Message from './Message/Message';
 import {AddMessageFormRedux} from "./DialogForm/DialogForm";
 import {DialogsType, MessagesType} from "../../Redux/dialogsPageReducer";
 import {Redirect} from "react-router-dom";
+import {maxLengthCreator, required} from "../../utils/validators/validators";
 
 type DialogsPropsType = {
     dialogs: Array<DialogsType>
