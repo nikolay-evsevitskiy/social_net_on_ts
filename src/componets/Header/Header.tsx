@@ -5,6 +5,7 @@ import s from './Header.module.css';
 type HeaderType = {
     isAuth: boolean
     login: string | null
+    logout: () => void
 }
 
 function Header(props: HeaderType) {
@@ -13,7 +14,7 @@ function Header(props: HeaderType) {
             <img src="https://thirdtemple.ca/wp-content/uploads/2020/10/social-media-1405601_1280.png"
                  alt="social network"/>
             <div className={s.loginBlock}>
-                {props.isAuth ? <h2>{props.login}</h2> : <NavLink to={'/login'}>Login</NavLink>}
+                {props.isAuth ? <div>{props.login} - <button onClick={props.logout}>Log out</button></div> : <NavLink to={'/login'}>Login</NavLink>}
             </div>
         </header>
     )

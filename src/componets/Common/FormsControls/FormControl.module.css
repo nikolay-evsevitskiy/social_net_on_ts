@@ -8,3 +8,11 @@
     color: red;
     font-weight: bold;
 }
+.formSummaryError {
+    border: red 4px solid;
+    padding: 5px;
+    color: red;
+    display: flex;
+    justify-content: center;
+
+}

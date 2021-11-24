@@ -1,5 +1,4 @@
 import axios from "axios";
-import {InitialStateAuthDataType} from "../Redux/auth-reducer";
 import {ProfileStateType} from "../Redux/profilePageReducer";
 
 type followType = {
@@ -13,10 +12,32 @@ type getUsersType = {
     items: []
     totalCount: number
 }
-type UpdateStatusType = {
+type updateStatusType = {
     resultCode: number
     messages: [string]
     data: {}
+}
+type loginDataType = {
+    resultCode: number
+    messages: [],
+    data: {
+        userId: number
+    }
+}
+type logoutDataType = {
+    resultCode: number
+    messages: [],
+    data: {}
+}
+
+type authMeDataType = {
+    resultCode: number
+    messages: []
+    data: {
+        id: number
+        email: string
+        login: string
+    }
 }
 
 const instance = axios.create({
@@ -48,10 +69,16 @@ export const usersAPI = {
 
 export const authAPI = {
 
-    logIn() {
-        return instance.get<InitialStateAuthDataType>(`auth/me`, {
+    me() {
+        return instance.get<authMeDataType>(`auth/me`, {
             withCredentials: true
         })
+    },
+    login(email: string, password: string, rememberMe: boolean = false) {
+        return instance.post<loginDataType>(`/auth/login`, {email, password, rememberMe})
+    },
+    logout() {
+        return instance.delete<logoutDataType>(`/auth/login`)
     }
 
 }
@@ -64,7 +91,7 @@ export const profileAPI = {
         return instance.get<string>(`profile/status/${userID}`)
     },
     updateStatus(status: string) {
-        return instance.put<UpdateStatusType>(`profile/status`, {status: status})
+        return instance.put<updateStatusType>(`profile/status`, {status: status})
     }
 }
 
