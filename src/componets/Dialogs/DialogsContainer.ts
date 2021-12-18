@@ -2,7 +2,7 @@ import {
     addMessageActionCreator,
     DialogsType,
     MessagesType
-} from '../../Redux/dialogsPageReducer'
+} from '../../Redux/dialogs-reducer'
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
 import {compose, Dispatch} from 'redux';

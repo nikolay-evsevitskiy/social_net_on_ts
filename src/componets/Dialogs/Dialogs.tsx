@@ -3,7 +3,7 @@ import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
 import {AddMessageFormRedux} from "./DialogForm/DialogForm";
-import {DialogsType, MessagesType} from "../../Redux/dialogsPageReducer";
+import {DialogsType, MessagesType} from "../../Redux/dialogs-reducer";
 import {Redirect} from "react-router-dom";
 import {maxLengthCreator, required} from "../../utils/validators/validators";
 

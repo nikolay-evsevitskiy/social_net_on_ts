@@ -1,5 +1,5 @@
 import React from 'react';
-import {ProfileStateType} from "../../../Redux/profilePageReducer";
+import {ProfileStateType} from "../../../Redux/profile-reducer";
 import {Preloader} from "../../Common/Preloader/Preloader";
 import style from './ProfileInfo.module.css'
 import ProfileStatus from "./ProfileStatus/ProfileStatus";

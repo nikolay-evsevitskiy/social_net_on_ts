@@ -1,5 +1,5 @@
 import axios from "axios";
-import {ProfileStateType} from "../Redux/profilePageReducer";
+import {ProfileStateType} from "../Redux/profile-reducer";
 
 type followType = {
     data: {}

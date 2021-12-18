@@ -1,9 +1,9 @@
 import {combineReducers} from 'redux';
 import {createStore} from 'redux';
-import profilePageReducer from "./profilePageReducer";
-import dialogPageReducer from "./dialogsPageReducer";
-import sideBarReducer from "./sideBarReducer";
-import usersReducer from "./usersPageReducer";
+import profileReducer from "./profile-reducer";
+import dialogPageReducer from "./dialogs-reducer";
+import sidebarReducer from "./sidebar-reducer";
+import usersReducer from "./users-reducer";
 import authReducer from "./auth-reducer";
 import {applyMiddleware} from 'redux';
 import thunkMiddleware from 'redux-thunk';
@@ -12,9 +12,9 @@ import appReducer from "./app-reducer";
 
 
 export const rootReducer = combineReducers({
-    profilePage: profilePageReducer,
+    profilePage: profileReducer,
     dialogPage: dialogPageReducer,
-    sideBar: sideBarReducer,
+    sideBar: sidebarReducer,
     usersPage: usersReducer,
     auth: authReducer,
     form: formReducer,

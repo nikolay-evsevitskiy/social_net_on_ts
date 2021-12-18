@@ -48,7 +48,7 @@ const initialState = {
     status: ''
 }
 
-const profilePageReducer = (state: InitialStateTypeProfilePageType = initialState, action: OwnActionType): InitialStateTypeProfilePageType => {
+const profileReducer = (state: InitialStateTypeProfilePageType = initialState, action: OwnActionType): InitialStateTypeProfilePageType => {
     switch (action.type) {
         case 'POST-ADD': {
             const newPost: PostsType = {
@@ -105,4 +105,4 @@ export const updateStatus = (status: string) => {
     };
 }
 
-export default profilePageReducer
+export default profileReducer

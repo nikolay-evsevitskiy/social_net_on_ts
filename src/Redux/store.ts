@@ -1,6 +1,6 @@
-import {postAdd, ProfileStateType} from "./profilePageReducer";
-import dialogPageReducer, {addMessageActionCreator} from "./dialogsPageReducer";
-import sideBarReducer from "./sideBarReducer";
+import {postAdd, ProfileStateType} from "./profile-reducer";
+import dialogPageReducer, {addMessageActionCreator} from "./dialogs-reducer";
+import sidebarReducer from "./sidebar-reducer";
 
 
 type PostsType = {
@@ -79,9 +79,9 @@ let store: StoreType = {
         return this._state;
     },
     dispatch(action: any) {
-        //this._state.profilePage = profilePageReducer(this._state.profilePage, action);
+        //this._state.profilePage = profileReducer(this._state.profilePage, action);
         this._state.dialogPage = dialogPageReducer(this._state.dialogPage, action);
-        this._state.sideBar = sideBarReducer(this._state.sideBar, action);
+        this._state.sideBar = sidebarReducer(this._state.sideBar, action);
         this._rerenderTree();
 
     }
