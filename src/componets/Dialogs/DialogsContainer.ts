@@ -23,7 +23,7 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         dialogs: state.dialogPage.dialogs,
         messages: state.dialogPage.messages,
-        isAuth: state.auth.isAuth,
+        isAuth: state.auth.data.isAuth,
     }
 }
 let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {

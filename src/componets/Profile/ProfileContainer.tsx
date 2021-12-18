@@ -11,6 +11,7 @@ type MapStateToPropsType = {
     profile: ProfileStateType
     isAuth: boolean
     status: string
+    authorizedUserId: string | null
 }
 type MapDispatchToPropsType = {
     getUserProfile: (userId: string) => void
@@ -18,17 +19,22 @@ type MapDispatchToPropsType = {
     updateStatus: (status: string) => void
 }
 type PathParamsType = {
-    userId: string
+    userId: any
 }
+
 type OwnPropsType = MapStateToPropsType & MapDispatchToPropsType
-type PropsType = RouteComponentProps<PathParamsType> & OwnPropsType
+type PropsType = OwnPropsType & RouteComponentProps<PathParamsType>
 
 
 class ProfileAPIComponent extends React.Component<PropsType> {
     componentDidMount() {
         let userId = this.props.match.params.userId
         if (!userId) {
-            userId = '2';
+            userId = this.props.authorizedUserId;
+            if (!userId) {
+                this.props.history.push('/login')
+
+            }
         }
 
         this.props.getUserProfile(userId)
@@ -46,15 +52,16 @@ class ProfileAPIComponent extends React.Component<PropsType> {
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
     profile: state.profilePage.profile,
-    isAuth: state.auth.isAuth,
-    status: state.profilePage.status
+    isAuth: state.auth.data.isAuth,
+    status: state.profilePage.status,
+    authorizedUserId: state.auth.data.id
 
 })
 
 export default compose<React.ComponentType>(
     withRouter,
     WithAuthRedirect,
-    connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, {
+    connect(mapStateToProps, {
         getUserProfile,
         updateStatus,
         getStatus

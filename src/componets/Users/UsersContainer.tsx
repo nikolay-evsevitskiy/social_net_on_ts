@@ -9,7 +9,6 @@ import {AppStateType} from '../../Redux/redux-store';
 import React from 'react';
 import Users from './Users';
 import {Preloader} from "../Common/Preloader/Preloader";
-import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 import {compose} from 'redux';
 
 type MapDispatchToPropsType = {
@@ -67,7 +66,6 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 }
 
 export default compose<React.ComponentType>(
-    WithAuthRedirect,
     connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, {
         follow,
         unfollow,

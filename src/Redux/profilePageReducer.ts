@@ -1,4 +1,5 @@
 import {profileAPI, usersAPI} from "../api/api";
+import {Dispatch} from "redux";
 
 type PostActionType = ReturnType<typeof postAdd>;
 type SetUserProfileType = ReturnType<typeof setUserProfile>
@@ -30,7 +31,7 @@ export type ProfileStateType = {
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
-    userId: string
+    userId: number
     photos: PhotoType
 
 }
@@ -78,15 +79,15 @@ export const setStatus = (status: string) => {
     return {type: 'SET-STATUS', status} as const
 };
 
-export const getUserProfile = (userId: string) => {
-    return (dispatch: any) => {
+export const getUserProfile = (userId: number) => {
+    return (dispatch: Dispatch<OwnActionType>) => {
         usersAPI.getProfile(userId).then(response => {
             dispatch(setUserProfile(response.data))
         })
     };
 }
 export const getStatus = (userId: string) => {
-    return (dispatch: any) => {
+    return (dispatch: Dispatch<OwnActionType>) => {
         profileAPI.getStatus(userId)
             .then(response => {
                 dispatch(setStatus(response.data))
@@ -94,7 +95,7 @@ export const getStatus = (userId: string) => {
     };
 }
 export const updateStatus = (status: string) => {
-    return (dispatch: any) => {
+    return (dispatch: Dispatch<OwnActionType>) => {
         profileAPI.updateStatus(status)
             .then(response => {
                 if (response.data.resultCode === 0) {

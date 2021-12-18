@@ -34,7 +34,7 @@ type authMeDataType = {
     resultCode: number
     messages: []
     data: {
-        id: number
+        id: string
         email: string
         login: string
     }
@@ -62,7 +62,7 @@ export const usersAPI = {
         return instance.post<followType>(`follow/${id}`, {})
             .then(response => response.data)
     },
-    getProfile(userID: string) {
+    getProfile(userID: number) {
         return profileAPI.getProfile(userID)
     }
 }
@@ -84,7 +84,7 @@ export const authAPI = {
 }
 
 export const profileAPI = {
-    getProfile(userID: string) {
+    getProfile(userID: number) {
         return instance.get<ProfileStateType>(`profile/${userID}`)
     },
     getStatus(userID: string) {

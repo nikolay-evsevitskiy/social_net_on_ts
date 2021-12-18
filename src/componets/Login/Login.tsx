@@ -41,7 +41,7 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                    type='checkbox'
                    name={'rememberMe'}/> remember me
         </div>
-        {props.error && <div className={s.formSummaryError}>ERROR</div>}
+        {props.error && <div className={s.formSummaryError}>{props.error}</div>}
         <div>
             <button>
                 Login
@@ -67,7 +67,7 @@ export const Login = (props: MapStateToPropsType & mapDispatchToPropsType) => {
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.data.isAuth
     }
 }
 
