@@ -3,6 +3,7 @@ import {ProfileStateType} from "../../../Redux/profile-reducer";
 import {Preloader} from "../../Common/Preloader/Preloader";
 import style from './ProfileInfo.module.css'
 import ProfileStatus from "./ProfileStatus/ProfileStatus";
+import ProfileStatusOnFC from './ProfileStatus/ProfileStatusOnFunctionComponent';
 
 type ProfileInfoType = {
     profile: ProfileStateType
@@ -24,7 +25,7 @@ const ProfileInfo = (props: ProfileInfoType) => {
             <div>
                 <div>
                     <img alt={'Profile photo'} src={props.profile.photos.large}/>
-                    <ProfileStatus  status={props.status} updateStatus={props.updateStatus}/>
+                    Status:<ProfileStatusOnFC status={props.status} updateStatus={props.updateStatus}/>
 
                 </div>
                 <div>Full name: {props.profile.fullName}</div>
