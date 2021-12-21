@@ -4,7 +4,12 @@ import {Dispatch} from "redux";
 type PostActionType = ReturnType<typeof postAdd>;
 type SetUserProfileType = ReturnType<typeof setUserProfile>
 type SetStatusProfileType = ReturnType<typeof setStatus>
-type OwnActionType = PostActionType | SetUserProfileType | SetStatusProfileType
+type DeletePostActionType = ReturnType<typeof deletePost>
+type OwnActionType =
+    PostActionType
+    | SetUserProfileType
+    | SetStatusProfileType
+    | DeletePostActionType
 export type PostsType = {
     id: number
     message: string
@@ -33,7 +38,6 @@ export type ProfileStateType = {
     fullName: string
     userId: number
     photos: PhotoType
-
 }
 
 
@@ -64,6 +68,12 @@ const profileReducer = (state: InitialStateTypeProfilePageType = initialState, a
         case 'SET-STATUS': {
             return {...state, status: action.status};
         }
+        case 'POST-DELETE': {
+            return {
+                ...state,
+                posts: state.posts.filter(i => i.id !== action.postId)
+            }
+        }
         default:
             return state;
     }
@@ -71,6 +81,9 @@ const profileReducer = (state: InitialStateTypeProfilePageType = initialState, a
 
 export const postAdd = (value: string) => {
     return {type: 'POST-ADD', value} as const
+};
+export const deletePost = (postId: number) => {
+    return {type: 'POST-DELETE', postId} as const
 };
 export const setUserProfile = (profile: ProfileStateType) => {
     return {type: 'SET-USER-PROFILE', profile} as const
