@@ -92,30 +92,19 @@ export const setStatus = (status: string) => {
     return {type: 'social-network/profile-reducer/SET-STATUS', status} as const
 };
 
-export const getUserProfile = (userId: number) => {
-    return (dispatch: Dispatch<OwnActionType>) => {
-        usersAPI.getProfile(userId).then(response => {
-            dispatch(setUserProfile(response.data))
-        })
-    };
+export const getUserProfile = (userId: number) => async (dispatch: Dispatch<OwnActionType>) => {
+    let response = await usersAPI.getProfile(userId)
+    dispatch(setUserProfile(response.data))
 }
-export const getStatus = (userId: string) => {
-    return (dispatch: Dispatch<OwnActionType>) => {
-        profileAPI.getStatus(userId)
-            .then(response => {
-                dispatch(setStatus(response.data))
-            })
-    };
+export const getStatus = (userId: string) => async (dispatch: Dispatch<OwnActionType>) => {
+    let response = await profileAPI.getStatus(userId)
+    dispatch(setStatus(response.data))
 }
-export const updateStatus = (status: string) => {
-    return (dispatch: Dispatch<OwnActionType>) => {
-        profileAPI.updateStatus(status)
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    dispatch(setStatus(status))
-                }
-            })
-    };
+export const updateStatus = (status: string) => async (dispatch: Dispatch<OwnActionType>) => {
+    let response = await profileAPI.updateStatus(status)
+    if (response.data.resultCode === 0) {
+        dispatch(setStatus(status))
+    }
 }
 
 export default profileReducer
