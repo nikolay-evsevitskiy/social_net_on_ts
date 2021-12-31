@@ -49,7 +49,7 @@ const initialState: InitialStateTypeUsersPage = {
 
 const usersReducer = (state: InitialStateTypeUsersPage = initialState, action: ActionType): InitialStateTypeUsersPage => {
     switch (action.type) {
-        case 'FOLLOW':
+        case 'social-network/users-reducer/FOLLOW':
             return {
                 ...state,
                 users: state.users.map(t => {
@@ -59,7 +59,7 @@ const usersReducer = (state: InitialStateTypeUsersPage = initialState, action: A
                     return t;
                 })
             }
-        case 'UNFOLLOW':
+        case 'social-network/users-reducer/UNFOLLOW':
             return {
                 ...state,
                 users: state.users.map(t => {
@@ -69,27 +69,27 @@ const usersReducer = (state: InitialStateTypeUsersPage = initialState, action: A
                     return t;
                 })
             }
-        case 'SET-USERS':
+        case 'social-network/users-reducer/SET-USERS':
             return {
                 ...state,
                 users: [...action.users]
             }
-        case 'SET-CURRENT-PAGE':
+        case 'social-network/users-reducer/SET-CURRENT-PAGE':
             return {
                 ...state,
                 currentPage: action.currentPage
             }
-        case 'SET-TOTAL-USER-COUNT':
+        case 'social-network/users-reducer/SET-TOTAL-USER-COUNT':
             return {
                 ...state,
                 totalUsersCount: action.totalCount
             }
-        case 'TOGGLE-IS-FETCHING':
+        case 'social-network/users-reducer/TOGGLE-IS-FETCHING':
             return {
                 ...state,
                 isFetching: action.isFetching
             }
-        case 'TOGGLE-IS-FOLLOWING-PROGRESS':
+        case 'social-network/users-reducer/TOGGLE-IS-FOLLOWING-PROGRESS':
             return {
                 ...state,
                 followingInProgress: action.followingInProgress
@@ -102,25 +102,25 @@ const usersReducer = (state: InitialStateTypeUsersPage = initialState, action: A
 };
 
 export const followSuccess = (userId: number) => {
-    return {type: 'FOLLOW', userId} as const
+    return {type: 'social-network/users-reducer/FOLLOW', userId} as const
 };
 export const unfollowSuccess = (userId: number) => {
-    return {type: 'UNFOLLOW', userId} as const
+    return {type: 'social-network/users-reducer/UNFOLLOW', userId} as const
 };
 export const setUsers = (users: UserType[]) => {
-    return {type: 'SET-USERS', users} as const
+    return {type: 'social-network/users-reducer/SET-USERS', users} as const
 };
 export const setCurrentPage = (currentPage: number) => {
-    return {type: 'SET-CURRENT-PAGE', currentPage} as const
+    return {type: 'social-network/users-reducer/SET-CURRENT-PAGE', currentPage} as const
 }
 export const setTotalUserCount = (totalCount: number) => {
-    return {type: 'SET-TOTAL-USER-COUNT', totalCount} as const
+    return {type: 'social-network/users-reducer/SET-TOTAL-USER-COUNT', totalCount} as const
 }
 export const toggleIsFetching = (isFetching: boolean) => {
-    return {type: 'TOGGLE-IS-FETCHING', isFetching} as const
+    return {type: 'social-network/users-reducer/TOGGLE-IS-FETCHING', isFetching} as const
 }
 export const toggleIsFollowingProgress = (userId: number, followingInProgress: boolean) => {
-    return {type: 'TOGGLE-IS-FOLLOWING-PROGRESS', followingInProgress, userId} as const
+    return {type: 'social-network/users-reducer/TOGGLE-IS-FOLLOWING-PROGRESS', followingInProgress, userId} as const
 }
 
 export const getUser = (currentPage: number, pageSize: number) => {

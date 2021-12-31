@@ -54,7 +54,7 @@ const initialState = {
 
 const profileReducer = (state: InitialStateTypeProfilePageType = initialState, action: OwnActionType): InitialStateTypeProfilePageType => {
     switch (action.type) {
-        case 'POST-ADD': {
+        case 'social-network/profile-reducer/POST-ADD': {
             const newPost: PostsType = {
                 id: new Date().getTime(),
                 message: action.value,
@@ -62,13 +62,13 @@ const profileReducer = (state: InitialStateTypeProfilePageType = initialState, a
             };
             return {...state, posts: [...state.posts, newPost]};
         }
-        case 'SET-USER-PROFILE': {
+        case 'social-network/profile-reducer/SET-USER-PROFILE': {
             return {...state, profile: action.profile};
         }
-        case 'SET-STATUS': {
+        case 'social-network/profile-reducer/SET-STATUS': {
             return {...state, status: action.status};
         }
-        case 'POST-DELETE': {
+        case 'social-network/profile-reducer/POST-DELETE': {
             return {
                 ...state,
                 posts: state.posts.filter(i => i.id !== action.postId)
@@ -80,16 +80,16 @@ const profileReducer = (state: InitialStateTypeProfilePageType = initialState, a
 };
 
 export const postAdd = (value: string) => {
-    return {type: 'POST-ADD', value} as const
+    return {type: 'social-network/profile-reducer/POST-ADD', value} as const
 };
 export const deletePost = (postId: number) => {
-    return {type: 'POST-DELETE', postId} as const
+    return {type: 'social-network/profile-reducer/POST-DELETE', postId} as const
 };
 export const setUserProfile = (profile: ProfileStateType) => {
-    return {type: 'SET-USER-PROFILE', profile} as const
+    return {type: 'social-network/profile-reducer/SET-USER-PROFILE', profile} as const
 };
 export const setStatus = (status: string) => {
-    return {type: 'SET-STATUS', status} as const
+    return {type: 'social-network/profile-reducer/SET-STATUS', status} as const
 };
 
 export const getUserProfile = (userId: number) => {

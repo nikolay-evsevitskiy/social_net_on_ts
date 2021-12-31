@@ -28,7 +28,7 @@ const initialState: InitialStateAuthDataType = {
 
 const authReducer = (state: InitialStateAuthDataType = initialState, action: ActionType): InitialStateAuthDataType => {
     switch (action.type) {
-        case 'SET-USER-DATA':
+        case 'social-network/auth-reducer/SET-USER-DATA':
             return {
                 ...state,
                 data: {...action.data},
@@ -41,7 +41,7 @@ const authReducer = (state: InitialStateAuthDataType = initialState, action: Act
 
 const setAuthUserData = (email: string | null, id: string | null, logIn: string | null, isAuth: boolean) => {
     return {
-        type: 'SET-USER-DATA', data: {email, id, logIn, isAuth} as const
+        type: 'social-network/auth-reducer/SET-USER-DATA', data: {email, id, logIn, isAuth} as const
     }
 }
 

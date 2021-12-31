@@ -1,4 +1,3 @@
-
 export type MessagesType = {
     id: number
     message: string
@@ -28,19 +27,20 @@ const initialState = {
 
 const dialogPageReducer = (state: InitialStateTypeDialogsPage = initialState, action: MessageActionType): InitialStateTypeDialogsPage => {
     switch (action.type) {
-        case 'ADD-MESSAGE': {
+        case 'social-network/dialogs-reducer/ADD-MESSAGE': {
             const newText: MessagesType = {
                 id: new Date().getTime(),
                 message: action.newMessage
             };
             return {...state, messages: [...state.messages, newText]};
         }
-        default: return state
+        default:
+            return state
     }
 }
 
 export const addMessageActionCreator = (newMessage: string) => {
-    return {type: "ADD-MESSAGE", newMessage} as const
+    return {type: "social-network/dialogs-reducer/ADD-MESSAGE", newMessage} as const
 };
 
 export default dialogPageReducer

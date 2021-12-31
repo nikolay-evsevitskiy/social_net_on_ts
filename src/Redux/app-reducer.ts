@@ -13,7 +13,7 @@ const initialState: InitialStateType = {
 
 const appReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
-        case 'INITIALIZED-SUCCESS':
+        case 'social-network/app-reducer/INITIALIZED-SUCCESS':
             return {
                 ...state,
                 initialized: true
@@ -24,12 +24,12 @@ const appReducer = (state: InitialStateType = initialState, action: ActionType):
 };
 
 const initializedSuccessAC = () => {
-    return {type: 'INITIALIZED-SUCCESS'} as const
+    return {type: 'social-network/app-reducer/INITIALIZED-SUCCESS'} as const
 }
 
 export const initializedApp = () => (dispatch: any) => {
     dispatch(getAuthUserData())
-        .then(()=> {
+        .then(() => {
             dispatch(initializedSuccessAC())
         })
 
