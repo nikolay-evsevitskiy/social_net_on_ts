@@ -3,6 +3,7 @@ import s from './Users.module.css';
 import userPhoto from '../../assets/images/5546667.png';
 import {InitialStateTypeUsersPage} from '../../Redux/users-reducer';
 import {NavLink} from "react-router-dom";
+import {Paginator} from "./Paginator";
 
 type UsersPageType = {
     usersCount: number
@@ -25,20 +26,12 @@ export const Users: React.FC<UsersPageType> = ({
                                                    follow,
                                                    unfollow
                                                }) => {
-    let pageCount = Math.ceil(usersCount / pageSize)
-    let pages = []
-    for (let i = 1; i <= pageCount; i++) {
-        pages.push(i)
-    }
 
     return <div>
-        <div>
-            {pages.map(p => {
-                return <span onClick={() => {
-                    onPageChanged(p)
-                }} className={currentPage === p ? s.selectedPage : ''}>{p}</span>
-            })}
-        </div>
+        <Paginator usersCount={usersCount}
+                   pageSize={pageSize}
+                   currentPage={currentPage}
+                   onPageChanged={onPageChanged}/>
         {
             usersPage.users.map(u => <div key={u.id}>
                     <span>

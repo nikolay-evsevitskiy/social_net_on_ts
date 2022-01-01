@@ -1,13 +1,13 @@
 import React from "react";
 import s from './FormControl.module.css'
 
-const FormControl = ({input, meta, ...props}: any) => {
-    const hasError = meta.touched && meta.error
+const FormControl = ({input, meta: {touched, error}, ...props}: any) => {
+    const hasError = touched && error
     return <div className={s.formControl + ' ' + (hasError ? s.error : '')}>
         <div>
             {props.children}
         </div>
-        {hasError && <span>{meta.error}</span>}
+        {hasError && <span>{error}</span>}
     </div>
 }
 export const Textarea = (props: any) => {
