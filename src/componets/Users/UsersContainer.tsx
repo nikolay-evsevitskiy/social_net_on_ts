@@ -38,11 +38,13 @@ type UsersAPIComponentType = MapStateToPropsType & MapDispatchToPropsType
 
 class UsersAPIComponent extends React.Component<UsersAPIComponentType> {
     componentDidMount() {
-        this.props.getUser(this.props.usersPage.currentPage, this.props.pageSize)
+        const {usersPage, pageSize} = this.props
+        this.props.getUser(usersPage.currentPage, pageSize)
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.getUser(pageNumber, this.props.pageSize)
+        const {pageSize} = this.props
+        this.props.getUser(pageNumber, pageSize)
     }
 
     render() {
