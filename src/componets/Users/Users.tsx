@@ -15,8 +15,17 @@ type UsersPageType = {
     followingInProgress: number[]
 }
 
-const Users = (props: UsersPageType) => {
-    let pageCount = Math.ceil(props.usersCount / props.pageSize)
+export const Users: React.FC<UsersPageType> = ({
+                                                   usersCount,
+                                                   pageSize,
+                                                   onPageChanged,
+                                                   currentPage,
+                                                   usersPage,
+                                                   followingInProgress,
+                                                   follow,
+                                                   unfollow
+                                               }) => {
+    let pageCount = Math.ceil(usersCount / pageSize)
     let pages = []
     for (let i = 1; i <= pageCount; i++) {
         pages.push(i)
@@ -26,12 +35,12 @@ const Users = (props: UsersPageType) => {
         <div>
             {pages.map(p => {
                 return <span onClick={() => {
-                    props.onPageChanged(p)
-                }} className={props.currentPage === p ? s.selectedPage : ''}>{p}</span>
+                    onPageChanged(p)
+                }} className={currentPage === p ? s.selectedPage : ''}>{p}</span>
             })}
         </div>
         {
-            props.usersPage.users.map(u => <div key={u.id}>
+            usersPage.users.map(u => <div key={u.id}>
                     <span>
                         <div className={s.item}>
                             <NavLink to={'/profile/' + u.id}>
@@ -41,11 +50,11 @@ const Users = (props: UsersPageType) => {
                         </div>
                         <div>
                             {u.followed
-                                ? <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
-                                    props.unfollow(u.id)
+                                ? <button disabled={followingInProgress.some(id => id === u.id)} onClick={() => {
+                                    unfollow(u.id)
                                 }}>Unfollow</button>
-                                : <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
-                                    props.follow(u.id)
+                                : <button disabled={followingInProgress.some(id => id === u.id)} onClick={() => {
+                                    follow(u.id)
                                 }}>Follow</button>}
                         </div>
                     </span>
@@ -65,5 +74,3 @@ const Users = (props: UsersPageType) => {
     </div>;
 
 }
-
-export default Users

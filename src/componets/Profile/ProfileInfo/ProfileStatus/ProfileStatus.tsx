@@ -1,5 +1,4 @@
 import React, {ChangeEvent} from 'react';
-//import style from './ProfileStatus.module.css'
 
 type ProfileStatusType = {
     status: string
@@ -38,7 +37,6 @@ class ProfileStatus extends React.Component<ProfileStatusType> {
             })
         }
     }
-
 
     render() {
         return (

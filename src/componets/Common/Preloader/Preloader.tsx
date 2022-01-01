@@ -5,8 +5,8 @@ type PreloaderType = {
     isFetching: boolean
 }
 
-export const Preloader = (props: PreloaderType) => {
+export const Preloader: React.FC<PreloaderType> = ({isFetching}) => {
     return <>
-        {props.isFetching ? <img src={preloader}/> : null}
+        {isFetching ? <img src={preloader}/> : null}
     </>
 }

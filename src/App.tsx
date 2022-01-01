@@ -1,10 +1,6 @@
 import React from 'react';
 import './App.css';
-import Navbar from './componets/Navbar/Navbar';
 import {BrowserRouter, Route} from 'react-router-dom';
-import News from './componets/News/News';
-import Music from './componets/Music/Music';
-import Settings from './componets/Setting/Settings';
 import Dialogs from './componets/Dialogs/DialogsContainer';
 import UsersAPIComponent from './componets/Users/UsersContainer';
 import ProfileAPIComponent from "./componets/Profile/ProfileContainer";
@@ -14,6 +10,10 @@ import {connect} from "react-redux";
 import {initializedApp} from "./Redux/app-reducer";
 import {AppStateType} from "./Redux/redux-store";
 import {Preloader} from "./componets/Common/Preloader/Preloader";
+import {Navbar} from "./componets/Navbar/Navbar";
+import {News} from "./componets/News/News";
+import {Music} from "./componets/Music/Music";
+import {Settings} from "./componets/Setting/Settings";
 
 type MapStateToPropsType = {
     initialized: boolean

@@ -8,7 +8,7 @@ import {AppStateType} from "../../Redux/redux-store";
 import {compose, Dispatch} from 'redux';
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 import React from "react";
-import Dialogs from "./Dialogs";
+import {Dialogs} from "./Dialogs";
 
 type MapStateToPropsType = {
     dialogs: Array<DialogsType>

@@ -9,8 +9,8 @@ export type FormDataType = {
 
 const maxLengthInFormOfPost30 = maxLengthCreator(30)
 
-const AddMessageForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
-    return <form onSubmit={props.handleSubmit}>
+const AddMessageForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit}) => {
+    return <form onSubmit={handleSubmit}>
         <div>
             <Field component={Textarea}
                    name={'addMessageBody'}

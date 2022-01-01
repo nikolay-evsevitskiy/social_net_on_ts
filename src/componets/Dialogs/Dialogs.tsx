@@ -5,7 +5,6 @@ import Message from './Message/Message';
 import {AddMessageFormRedux} from "./DialogForm/DialogForm";
 import {DialogsType, MessagesType} from "../../Redux/dialogs-reducer";
 import {Redirect} from "react-router-dom";
-import {maxLengthCreator, required} from "../../utils/validators/validators";
 
 type DialogsPropsType = {
     dialogs: Array<DialogsType>
@@ -15,14 +14,14 @@ type DialogsPropsType = {
 }
 
 
-const Dialogs = (props: DialogsPropsType) => {
+export const Dialogs: React.FC<DialogsPropsType> = ({dialogs, messages, addMessage, isAuth}) => {
 
-    let dialogElements = props.dialogs.map((d) => <DialogItem id={d.id} key={d.id} name={d.name}/>);
-    let messageElements = props.messages.map((m) => <Message text={m.message} key={m.id}/>);
-    let addMessage = (values: any) => {
-        props.addMessage(values.addMessageBody)
+    let dialogElements = dialogs.map((d) => <DialogItem id={d.id} key={d.id} name={d.name}/>);
+    let messageElements = messages.map((m) => <Message text={m.message} key={m.id}/>);
+    let addMessageHandler = (values: any) => {
+        addMessage(values.addMessageBody)
     };
-    if (!props.isAuth) return  <Redirect to={'/login'}/>
+    if (!isAuth) return <Redirect to={'/login'}/>
 
     return (
         <div className={s.dialogs}>
@@ -32,12 +31,10 @@ const Dialogs = (props: DialogsPropsType) => {
             <div className={s.messages}>
                 {messageElements}
                 <div>
-                    <AddMessageFormRedux onSubmit={addMessage}/>
+                    <AddMessageFormRedux onSubmit={addMessageHandler}/>
                 </div>
             </div>
 
         </div>
     )
 }
-
-export default Dialogs;

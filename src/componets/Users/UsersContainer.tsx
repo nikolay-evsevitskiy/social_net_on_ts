@@ -7,7 +7,6 @@ import {
 } from '../../Redux/users-reducer';
 import {AppStateType} from '../../Redux/redux-store';
 import React from 'react';
-import Users from './Users';
 import {Preloader} from "../Common/Preloader/Preloader";
 import {compose} from 'redux';
 import {
@@ -18,6 +17,7 @@ import {
     getUsersPage
 } from "../../Redux/users-selectors";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
+import {Users} from "./Users";
 
 type MapDispatchToPropsType = {
     follow: (userId: number) => void

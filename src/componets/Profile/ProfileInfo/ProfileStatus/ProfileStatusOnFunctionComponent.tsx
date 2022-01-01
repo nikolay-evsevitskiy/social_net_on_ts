@@ -1,36 +1,34 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-//import style from './ProfileStatus.module.css'
 
 type ProfileStatusType = {
-    status: string
+    statusProps: string
     updateStatus: (status: string) => void
 }
 
-const ProfileStatusOnFC = (props: ProfileStatusType) => {
+const ProfileStatusOnFC: React.FC<ProfileStatusType> = ({statusProps, updateStatus}) => {
     const [editMode, setEditMode] = useState<boolean>(false)
-    const [status, setStatus] = useState<string>(props.status)
+    const [status, setStatus] = useState<string>(statusProps)
 
     const activateEditMode = () => {
         setEditMode(true)
     }
     const deactivateEditMode = () => {
         setEditMode(false)
-        props.updateStatus(status)
+        updateStatus(status)
     }
     const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
         setStatus(e.currentTarget.value)
     }
-
     useEffect(() => {
-        if (props.status !== status) {
-            setStatus(props.status)
+        if (statusProps !== status) {
+            setStatus(statusProps)
         }
-    }, [props.status])
+    }, [statusProps])
 
     return (
         <div>
             {!editMode && <div>
-                <span onDoubleClick={activateEditMode}><b>{props.status || 'No status'}</b></span>
+                <span onDoubleClick={activateEditMode}><b>{statusProps || 'No status'}</b></span>
             </div>}
             {editMode && <div>
                 <input onChange={onStatusChange}

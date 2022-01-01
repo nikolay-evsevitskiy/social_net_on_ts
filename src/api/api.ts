@@ -1,7 +1,7 @@
 import axios from "axios";
 import {ProfileStateType} from "../Redux/profile-reducer";
 
-type followType = {
+ export type FollowType = {
     data: {}
     fieldsErrors: []
     messages: []
@@ -55,11 +55,11 @@ export const usersAPI = {
             .then(response => response.data)
     },
     unfollow(id: number) {
-        return instance.delete<followType>(`follow/${id}`)
+        return instance.delete<FollowType>(`follow/${id}`)
             .then(response => response.data)
     },
     follow(id: number) {
-        return instance.post<followType>(`follow/${id}`, {})
+        return instance.post<FollowType>(`follow/${id}`, {})
             .then(response => response.data)
     },
     getProfile(userID: number) {
