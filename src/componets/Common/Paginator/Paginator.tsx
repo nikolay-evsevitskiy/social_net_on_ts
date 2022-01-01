@@ -1,4 +1,4 @@
-import s from "./Users.module.css";
+import s from "./Paginator.module.css";
 import React from "react";
 
 type PaginatorPropsType = {
