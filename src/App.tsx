@@ -1,9 +1,6 @@
 import React from 'react';
 import './App.css';
 import {BrowserRouter, Route} from 'react-router-dom';
-import Dialogs from './componets/Dialogs/DialogsContainer';
-import UsersAPIComponent from './componets/Users/UsersContainer';
-import ProfileAPIComponent from "./componets/Profile/ProfileContainer";
 import HeaderContainer from "./componets/Header/HeaderContainer";
 import {LoginAPIComponent} from "./componets/Login/Login";
 import {connect, Provider} from "react-redux";
@@ -14,6 +11,10 @@ import {Navbar} from "./componets/Navbar/Navbar";
 import {News} from "./componets/News/News";
 import {Music} from "./componets/Music/Music";
 import {Settings} from "./componets/Setting/Settings";
+
+const DialogsContainer = React.lazy(() => import('./componets/Dialogs/DialogsContainer'))
+const ProfileContainer = React.lazy(() => import('./componets/Profile/ProfileContainer'))
+const UsersContainer = React.lazy(() => import('./componets/Users/UsersContainer'))
 
 
 type MapStateToPropsType = {
@@ -41,12 +42,24 @@ class App extends React.Component<AppComponentType> {
                     <HeaderContainer/>
                     <Navbar/>
                     <div className='app-wrapper-content'>
-                        <Route path={'/dialogs'} render={() => <Dialogs/>}/>
-                        <Route path={'/profile/:userId?'} render={() => <ProfileAPIComponent/>}/>
+                        <Route path={'/dialogs'} render={() => {
+                            return <React.Suspense fallback={<Preloader isFetching={true}/>}>
+                                <DialogsContainer/>
+                            </React.Suspense>
+                        }}/>
+                        <Route path={'/profile/:userId?'} render={() => {
+                            return <React.Suspense fallback={<Preloader isFetching={true}/>}>
+                                <ProfileContainer/>
+                            </React.Suspense>
+                        }}/>
                         <Route path={'/news'} render={() => <News/>}/>
                         <Route path={'/music'} render={() => <Music/>}/>
                         <Route path={'/settings'} render={() => <Settings/>}/>
-                        <Route path={'/users'} render={() => <UsersAPIComponent/>}/>
+                        <Route path={'/users'} render={() => {
+                            return <React.Suspense fallback={<Preloader isFetching={true}/>}>
+                                <UsersContainer/>
+                            </React.Suspense>
+                        }}/>
                         <Route path={'/login'} render={() => <LoginAPIComponent/>}/>
                     </div>
                 </div>
