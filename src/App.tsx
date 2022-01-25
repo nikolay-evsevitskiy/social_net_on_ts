@@ -6,14 +6,15 @@ import UsersAPIComponent from './componets/Users/UsersContainer';
 import ProfileAPIComponent from "./componets/Profile/ProfileContainer";
 import HeaderContainer from "./componets/Header/HeaderContainer";
 import {LoginAPIComponent} from "./componets/Login/Login";
-import {connect} from "react-redux";
+import {connect, Provider} from "react-redux";
 import {initializedApp} from "./Redux/app-reducer";
-import {AppStateType} from "./Redux/redux-store";
+import {AppStateType, store} from "./Redux/redux-store";
 import {Preloader} from "./componets/Common/Preloader/Preloader";
 import {Navbar} from "./componets/Navbar/Navbar";
 import {News} from "./componets/News/News";
 import {Music} from "./componets/Music/Music";
 import {Settings} from "./componets/Setting/Settings";
+
 
 type MapStateToPropsType = {
     initialized: boolean
@@ -60,5 +61,11 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
         initialized: state.app.initialized
     }
 }
-
-export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, {initializedApp})(App)
+const AppContainer = connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, {initializedApp})(App)
+export const SamuraiJSApp = () => {
+    return <React.StrictMode>
+        <Provider store={store}>
+            <AppContainer/>
+        </Provider>
+    </React.StrictMode>
+}

@@ -7,6 +7,6 @@ type PreloaderType = {
 
 export const Preloader: React.FC<PreloaderType> = ({isFetching}) => {
     return <>
-        {isFetching ? <img src={preloader}/> : null}
+        {isFetching ? <img src={preloader} alt={'loading...'}/> : null}
     </>
 }
