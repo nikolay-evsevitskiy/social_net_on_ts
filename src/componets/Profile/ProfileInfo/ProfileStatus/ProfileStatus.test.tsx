@@ -15,27 +15,17 @@ describe("Button component", () => {
         }} status="TEST!!!"/>);
         const root = component.root;
         const span = root.findByType("span")
-        // @ts-ignore
         expect(span).not.toBeNull();
     });
     test("after creation <input> shouldn't be displayed", () => {
         const component = create(<ProfileStatus updateStatus={() => {
         }} status="TEST!!!"/>);
         const root = component.root;
-
-        // @ts-ignore
         expect(() => {
-            let input = root.findByType("input")
+            root.findByType("input")
         }).toThrow();
     });
-    test("after creation <span> should contains correct status", () => {
-        const component = create(<ProfileStatus updateStatus={() => {
-        }} status="TEST!!!"/>);
-        const root = component.root;
-        const span = root.findByType("span")
-        // @ts-ignore
-        expect(span.children[0]).toBe("TEST!!!");
-    });
+
     test("input should be displayed in editMode instead of span", () => {
         const component = create(<ProfileStatus updateStatus={() => {
         }} status="TEST!!!"/>);
@@ -43,15 +33,14 @@ describe("Button component", () => {
         const span = root.findByType("span")
         span.props.onDoubleClick()
         let input = root.findByType("input")
-        // @ts-ignore
         expect(input.props.value).toBe("TEST!!!");
     });
     test("callback should be called", () => {
         const mockCallback = jest.fn()
         const component = create(<ProfileStatus updateStatus={mockCallback} status="TEST!!!"/>);
         const instance = component.getInstance();
-        instance.deactivateEditMode();
         // @ts-ignore
+        instance.deactivateEditMode();
         expect(mockCallback.mock.calls.length).toBe(1);
     });
 });
